@@ -2,7 +2,7 @@
 <!-- <img src="assets/me.jpg" alt="Tushar Anand" width="200" style="border-radius:50%;"> -->
 <!-- ![Tushar Anand](assets/me.jpg) -->
 **BITS Pilani, Hyderabad Campus**  
-Economics + Computer Science | AI Researcher | ACM GenAI Head | Mars Rover Autonomy Lead
+Economics + Computer Science | AI Researcher 
 
 ---
 
@@ -13,7 +13,7 @@ With a dual background in Economics and Computer Science, I approach machine lea
 ---
 
 ## Publications
-- **ViM-Disparity** – *ICASSP 2025*: Bridging the gap of speed, accuracy, and memory for disparity map generation.
+- **ViM-Disparity** – *ICASSP 2025*: Bridging the gap of speed, accuracy, and memory for disparity map generation.[Link](https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DJxbmywAAAAJ&citation_for_view=DJxbmywAAAAJ:u5HHmVD_uO8C)  
 
 
 ## Work
