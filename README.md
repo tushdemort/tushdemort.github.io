@@ -42,5 +42,5 @@ With a dual background in Economics and Computer Science, I approach machine lea
 
 ## 📬 Contact
 - **GitHub**: [github.com/tushdemort](https://github.com/tushdemort)  
-- **LinkedIn**: [linkedin.com/in/tushar-anand](https://www.linkedin.com/in/tusharananddel/)  
+- **LinkedIn**: [linkedin.com/in/tusharananddel](https://www.linkedin.com/in/tusharananddel/)  
 - **Email**: anand.tushar2010@gmail.com
