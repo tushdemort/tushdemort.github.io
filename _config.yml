@@ -1,0 +1,7 @@
+title: "Tushar Anand"
+description: "Economics + Computer Science | AI Research | Fair & Efficient NLP Systems"
+theme: jekyll-theme-minimal
+logo: /assets/profile.jpg # optional, place image in assets/
+show_downloads: false
+github:
+  is_project_page: false
