@@ -1,6 +1,6 @@
 # Tushar Anand
-<img src="assets/profile.jpg" alt="Tushar Anand" width="200" style="border-radius:50%;">
-
+<!-- <img src="assets/me.jpg" alt="Tushar Anand" width="200" style="border-radius:50%;"> -->
+![Tushar Anand](assets/me.jpg)
 **BITS Pilani, Hyderabad Campus**  
 Economics + Computer Science | AI Researcher | ACM GenAI Head | Mars Rover Autonomy Lead
 
