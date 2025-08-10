@@ -1,5 +1,5 @@
 # Tushar Anand
-<img src="assets/me.jpg" alt="Tushar Anand" width="200" style="border-radius:50%;">
+<!-- <img src="assets/me.jpg" alt="Tushar Anand" width="200" style="border-radius:50%;"> -->
 <!-- ![Tushar Anand](assets/me.jpg) -->
 **BITS Pilani, Hyderabad Campus**  
 Economics + Computer Science | AI Researcher | ACM GenAI Head | Mars Rover Autonomy Lead
@@ -12,18 +12,26 @@ With a dual background in Economics and Computer Science, I approach machine lea
 
 ---
 
-## Research & Publications
+## Publications
 - **ViM-Disparity** – *ICASSP 2025*: Bridging the gap of speed, accuracy, and memory for disparity map generation.
-- **Masked Autoencoders (MAE)** – Adaptation across vision and language.
-- **BERT + LoRA** – Inference optimization for low-resource environments.
-- **GeomCAD** – CAD sequence generation with autoregressive decoding.
+
+
+## Work
+- **DeepTek.AI** - Worked on model quantization of ResNet and InceptionV3 models using PyTorch and Tensorflow for covid and pneumonia detection in chest X-rays.
+- **WILP@BITS** - Worked on a new platform for professors to create, store and modify question banks. Added ability to generate custom question papers served to each student to prevent cheating. Used Python+Flask for backend, HTML/CSS/JS for frontend and Firebase for database.
+
+## Research Projects
+- **LLMs for multi-paradigm causal graphs** - Designed and deployed a dataset collection and annotation tool between humans and LLMs. Served local LLM pipelines as endpoints using transformers and Langchain. Used Python+Flask for website backend, Firebase to store chats history and context.
+- **GeomCAD** – Unconditional and Conditional CAD sequence generation using point cloud data with autoregressive decoding along with Diffusion models and Variational autoencoders.
+- **Masked Autoencoders (MAE)** – Adapting CAD generation models with multi-modal input like text and images.
+- **LoRA** – Finetuning and model merging on Mistral and Llama models.
 
 ---
 
 ## Projects
-- **Quantized ResNet18 for ImageNet Inference** – Using FBGEMM optimizations.
-- **Mars Rover Team** – Autonomy module leader.
-- **ACM Chapter GenAI Team** – Head, leading applied generative AI projects.
+- **Floor Planner** - Created a floor planning and interior design software using Swing and Java.
+- **Pharmacy Chain Management System** – Developed PL/SQL procedures to manage data entry, enforce complex constraints, and generate reports such as prescription history and drug availability.
+
 
 ---
 
@@ -35,8 +43,8 @@ With a dual background in Economics and Computer Science, I approach machine lea
 
 ## Education
 - **BITS Pilani, Hyderabad Campus**  
-  Dual Major: Economics & Computer Science  
-  CGPA: **9.05 / 10**
+  Dual Major: (M.Sc)Economics & (B.E.)Computer Science  
+  CGPA: **9.09 / 10**
 
 ---
 
