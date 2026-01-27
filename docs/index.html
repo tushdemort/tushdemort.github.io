@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Tushar Anand</title>
+  <meta name="description" content="Tushar Anand — CS & Economics @ BITS Hyderabad. Geometry • Vision • Language • CAD • Multimodal ML." />
+  <style>
+    :root{
+      --bg:#070A12;
+      --panel:#0C1020;
+      --panel2:#0B1326;
+      --text:#EAF0FF;
+      --muted:#A7B2D6;
+      --faint:#6F7AA6;
+      --line:rgba(255,255,255,.10);
+      --brand:#8B5CF6;
+      --brand2:#22D3EE;
+      --ok:#34D399;
+      --warn:#FBBF24;
+      --shadow: 0 18px 60px rgba(0,0,0,.55);
+      --radius:18px;
+      --radius2:26px;
+      --max: 1050px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: var(--sans);
+      color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 20% 10%, rgba(139,92,246,.25), transparent 60%),
+        radial-gradient(900px 700px at 80% 20%, rgba(34,211,238,.18), transparent 55%),
+        radial-gradient(900px 700px at 50% 90%, rgba(52,211,153,.12), transparent 55%),
+        var(--bg);
+      line-height:1.55;
+      overflow-x:hidden;
+    }
+    a{color:inherit; text-decoration:none}
+    a:hover{opacity:.92}
+    .wrap{max-width:var(--max); margin:0 auto; padding:26px 18px 80px}
+    .topbar{
+      position:sticky; top:0; z-index:40;
+      backdrop-filter: blur(12px);
+      background: linear-gradient(to bottom, rgba(7,10,18,.72), rgba(7,10,18,.25));
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .topbar .inner{max-width:var(--max); margin:0 auto; padding:14px 18px; display:flex; align-items:center; gap:14px;}
+    .logo{
+      display:flex; align-items:center; gap:10px; font-weight:750; letter-spacing:.2px;
+    }
+    .dot{
+      width:11px; height:11px; border-radius:999px;
+      background: linear-gradient(135deg, var(--brand), var(--brand2));
+      box-shadow: 0 0 22px rgba(139,92,246,.35);
+    }
+    .nav{margin-left:auto; display:flex; gap:16px; flex-wrap:wrap; justify-content:flex-end}
+    .nav a{
+      color:var(--muted);
+      padding:8px 10px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-size: 14px;
+    }
+    .nav a:hover{
+      color:var(--text);
+      border-color: rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+    }
+    .hero{
+      padding:34px 0 18px;
+      display:grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap:18px;
+      align-items:stretch;
+    }
+    @media (max-width: 900px){
+      .hero{grid-template-columns:1fr; padding-top:22px;}
+    }
+    .card{
+      background: linear-gradient(180deg, rgba(12,16,32,.92), rgba(11,19,38,.88));
+      border:1px solid rgba(255,255,255,.10);
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .card::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(900px 260px at 15% 5%, rgba(139,92,246,.20), transparent 55%),
+                  radial-gradient(700px 260px at 85% 15%, rgba(34,211,238,.14), transparent 55%);
+      pointer-events:none;
+      filter: blur(0px);
+    }
+    .card > *{position:relative}
+    .hero-left{padding:26px 24px}
+    .hero-right{padding:22px 20px; display:flex; flex-direction:column; gap:12px}
+    h1{
+      margin:0 0 10px;
+      font-size: clamp(28px, 3.1vw, 44px);
+      line-height: 1.08;
+      letter-spacing: -0.8px;
+    }
+    .tagline{
+      color:var(--muted);
+      font-size: 16px;
+      margin: 0 0 18px;
+      max-width: 66ch;
+    }
+    .chips{display:flex; flex-wrap:wrap; gap:10px; margin: 16px 0 22px}
+    .chip{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 11px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      color: var(--muted);
+      font-size: 13px;
+      white-space:nowrap;
+    }
+    .chip b{color:var(--text); font-weight:650}
+    .btns{display:flex; flex-wrap:wrap; gap:10px; margin-top: 6px}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding:11px 14px;
+      border-radius: 12px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      color: var(--text);
+      font-weight:650;
+      font-size:14px;
+    }
+    .btn.primary{
+      border-color: transparent;
+      background: linear-gradient(135deg, rgba(139,92,246,.95), rgba(34,211,238,.85));
+      box-shadow: 0 14px 40px rgba(139,92,246,.25);
+    }
+    .btn:hover{transform: translateY(-1px)}
+    .btn:active{transform: translateY(0px)}
+    .mini{
+      border-radius: var(--radius);
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      padding:14px 14px;
+    }
+    .mini h3{margin:0 0 6px; font-size: 14px; color: var(--muted); font-weight:700; letter-spacing:.2px; text-transform:uppercase}
+    .mini .value{font-size: 18px; font-weight:780; margin:0}
+    .mini .sub{color:var(--faint); font-size: 13px; margin:6px 0 0}
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    @media (max-width: 560px){ .grid{grid-template-columns:1fr;} }
+    .section{
+      margin-top: 18px;
+      padding: 18px 0 0;
+    }
+    .section h2{
+      font-size: 18px;
+      margin: 0 0 12px;
+      letter-spacing: -0.2px;
+    }
+    .divider{
+      height:1px; background: rgba(255,255,255,.08);
+      margin: 18px 0;
+    }
+    .list{display:flex; flex-direction:column; gap:12px}
+    .item{
+      padding:16px 16px;
+      border-radius: var(--radius);
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+    }
+    .item .top{
+      display:flex; gap:12px; align-items:flex-start; justify-content:space-between; flex-wrap:wrap;
+    }
+    .item .title{
+      font-weight:780; letter-spacing:-0.2px; margin:0;
+    }
+    .item .meta{
+      color:var(--faint); font-size: 13px; margin: 4px 0 0;
+    }
+    .pill{
+      font-family: var(--mono);
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      color: var(--muted);
+    }
+    ul{margin:10px 0 0 18px; padding:0}
+    li{margin: 6px 0; color: var(--muted)}
+    .cols{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    @media (max-width: 900px){ .cols{grid-template-columns:1fr;} }
+    .footer{
+      margin-top: 26px;
+      color: var(--faint);
+      font-size: 13px;
+      display:flex;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      gap:10px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+    .kbd{
+      font-family: var(--mono);
+      border:1px solid rgba(255,255,255,.14);
+      padding:2px 8px;
+      border-radius:10px;
+      background: rgba(255,255,255,.05);
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .muted{color:var(--muted)}
+    .tiny{color:var(--faint); font-size:12px}
+    .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      font-family: var(--mono);
+      font-size:12px;
+      padding:7px 10px;
+      border-radius: 12px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      color: var(--muted);
+    }
+    .spark{
+      width:10px; height:10px; border-radius:999px;
+      background: linear-gradient(135deg, var(--brand), var(--brand2));
+      box-shadow: 0 0 16px rgba(34,211,238,.22);
+      flex: 0 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="inner">
+      <div class="logo"><span class="dot"></span> Tushar Anand</div>
+      <nav class="nav">
+        <a href="#about">About</a>
+        <a href="#publications">Publications</a>
+        <a href="#experience">Experience</a>
+        <a href="#leadership">Leadership</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <section class="hero">
+      <div class="card hero-left">
+        <h1>Geometry × Vision × Language</h1>
+        <p class="tagline">
+          CS & Economics @ <b>BITS Hyderabad</b> (CGPA <b>9.07/10</b>, Top <b>4%</b>).
+          I build multimodal ML systems for <b>CAD</b>, <b>3D understanding</b>, and <b>efficient vision</b>.
+        </p>
+
+        <div class="chips">
+          <span class="chip"><b>3D / CAD</b> B-Rep • Reverse Engg • Generation</span>
+          <span class="chip"><b>Multimodal</b> Text • Image • Point Clouds</span>
+          <span class="chip"><b>Efficient Vision</b> Mamba • Stereo</span>
+          <span class="chip"><b>ML Systems</b> Local LLM inference • Pipelines</span>
+        </div>
+
+        <div class="btns">
+          <!-- Replace # with your real links -->
+          <a class="btn primary" href="#contact">Get in touch</a>
+          <a class="btn" href="https://github.com/tushdemort" target="_blank" rel="noreferrer">GitHub</a>
+          <a class="btn" href="#" target="_blank" rel="noreferrer">LinkedIn</a>
+          <a class="btn" href="#" target="_blank" rel="noreferrer">CV / PDF</a>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="cols">
+          <div class="mini">
+            <h3>Current Focus</h3>
+            <p class="value">B-Rep + Multimodal CAD</p>
+            <p class="sub">Representation learning, annotations, generation</p>
+          </div>
+          <div class="mini">
+            <h3>Open To</h3>
+            <p class="value">Research Internships</p>
+            <p class="sub">Vision, Geometry, 3D, Multimodal ML</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card hero-right">
+        <div class="mini">
+          <h3>Education</h3>
+          <p class="value">BITS Hyderabad</p>
+          <p class="sub">B.E. Computer Science + M.Sc Economics<br><span class="tiny">Oct 2022 – May 2027</span></p>
+        </div>
+        <div class="mini">
+          <h3>Highlights</h3>
+          <div class="list" style="gap:10px">
+            <div class="badge"><span class="spark"></span> CVPR 2026 (under review): A2Z-10M+</div>
+            <div class="badge"><span class="spark"></span> ICASSP 2025: ViM-Disparity</div>
+            <div class="badge"><span class="spark"></span> ML Intern: DeepTek AI</div>
+          </div>
+        </div>
+        <div class="mini">
+          <h3>Quick Stats</h3>
+          <div class="grid">
+            <div>
+              <p class="value" style="margin:0">9.07</p>
+              <p class="sub">CGPA / 10</p>
+            </div>
+            <div>
+              <p class="value" style="margin:0">Top 4%</p>
+              <p class="sub">Academic standing</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section">
+      <h2>About</h2>
+      <div class="item">
+        <p class="muted" style="margin:0">
+          I’m interested in how structured geometry (like <b>B-Rep CAD</b>) can be learned, generated, and edited using
+          modern ML — especially when combined with <b>language</b> and <b>vision</b>.
+          I’ve worked on multimodal CAD representation learning, stereo depth with efficient sequence models, and
+          local LLM-based systems for data collection and interaction.
+        </p>
+      </div>
+    </section>
+
+    <section id="publications" class="section">
+      <h2>Publications</h2>
+      <div class="list">
+        <div class="item">
+          <div class="top">
+            <div>
+              <p class="title">A2Z-10M+: Geometric Deep Learning with A-to-Z B-Rep Annotations for AI-Assisted CAD Modeling and Reverse Engineering</p>
+              <p class="meta">CVPR 2026 — <span class="pill">Under Review</span></p>
+            </div>
+            <span class="pill">Geometric DL • B-Rep • CAD</span>
+          </div>
+          <ul>
+            <li>Large-scale B-Rep annotations enabling learning for CAD modeling and reverse engineering.</li>
+          </ul>
+        </div>
+
+        <div class="item">
+          <div class="top">
+            <div>
+              <p class="title">ViM-Disparity: Bridging the Gap of Speed, Accuracy and Memory for Disparity Map Generation</p>
+              <p class="meta">ICASSP 2025</p>
+            </div>
+            <span class="pill">Stereo • Vision Mamba</span>
+          </div>
+          <ul>
+            <li>Architecture exploring Vision Mamba blocks for improved memory and runtime efficiency in stereo matching.</li>
+          </ul>
+        </div>
+      </div>
+      <p class="tiny" style="margin-top:10px">Tip: add paper links (PDF / arXiv / project page) once public.</p>
+    </section>
+
+    <section id="experience" class="section">
+      <h2>Research & Engineering Experience</h2>
+      <div class="list">
+        <div class="item">
+          <div class="top">
+            <div>
+              <p class="title">LLMs for Multi-Paradigm Causal Graphs</p>
+              <p class="meta">Advisor: Prof. S. K. Aziz Ali • Nov 2024 – Aug 2025</p>
+            </div>
+            <span class="pill">LLMs • Data Platform</span>
+          </div>
+          <ul>
+            <li>Built a human–AI conversational dataset platform simulating structured roles (e.g., patient & therapist).</li>
+            <li>Designed local LLM inference pipelines using PyTorch and LangChain without external APIs.</li>
+            <li>Flask backend for real-time interaction + dataset logging; Firebase storage with context-window management.</li>
+          </ul>
+        </div>
+
+        <div class="item">
+          <div class="top">
+            <div>
+              <p class="title">Multi-Modal CAD-GPT</p>
+              <p class="meta">Advisor: Prof. S. K. Aziz Ali • Jul 2024 – Nov 2024</p>
+            </div>
+            <span class="pill">Multimodal • CAD</span>
+          </div>
+          <ul>
+            <li>Unified LLMs, BERT, ViT, and point-cloud CNNs into a shared latent representation.</li>
+            <li>Trained Masked Autoencoders for cross-modal distillation across text, images, and point clouds.</li>
+            <li>Used VAEs to sample DeepCAD latents and generate novel CAD geometries.</li>
+          </ul>
+        </div>
+
+        <div class="item">
+          <div class="top">
+            <div>
+              <p class="title">Disparity Map Generation with Vision Mamba</p>
+              <p class="meta">Advisor: Prof. Aritra Mukherjee • Jan 2024 – Sep 2024</p>
+            </div>
+            <span class="pill">Stereo • Efficient Vision</span>
+          </div>
+          <ul>
+            <li>Co-designed ViM-Disparity; implemented and ablated multiscale CNN encoders + bidirectional ViM blocks.</li>
+            <li>Explored symmetric feature concatenation strategies for stereo matching performance.</li>
+          </ul>
+        </div>
+
+        <div class="item">
+          <div class="top">
+            <div>
+              <p class="title">ML Intern — DeepTek AI</p>
+              <p class="meta">May 2024 – Jul 2024</p>
+            </div>
+            <span class="pill">Quantization • CV</span>
+          </div>
+          <ul>
+            <li>Trained ResNet/InceptionV3 for Pneumonia & COVID detection (F1 score: 0.85).</li>
+            <li>Improved inference speed by 53% using QAT and PTQ; built robust class-imbalance evaluation pipelines.</li>
+          </ul>
+        </div>
+
+        <div class="item">
+          <div class="top">
+            <div>
+              <p class="title">Intern — WILP @ BITS</p>
+              <p class="meta">May 2023 – Jan 2024</p>
+            </div>
+            <span class="pill">Flask • NLP</span>
+          </div>
+          <ul>
+            <li>Built a Flask exam platform for LLM-powered subjective + MCQ question generation.</li>
+            <li>Reduced manual exam prep effort by 70%; automated MCQ grading and similarity-based scoring for subjective answers.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="leadership" class="section">
+      <h2>Leadership</h2>
+      <div class="list">
+        <div class="item">
+          <div class="top">
+            <div>
+              <p class="title">GenAI Lead — ACM BITS Hyderabad</p>
+              <p class="meta">Jul 2024 – Jul 2025</p>
+            </div>
+            <span class="pill">PyTorch</span>
+          </div>
+          <ul>
+            <li>CNN-based wall defect detection; sequence models (LSTM/RNN/Transformer) for machine translation (EN–FR/DE/ES).</li>
+          </ul>
+        </div>
+
+        <div class="item">
+          <div class="top">
+            <div>
+              <p class="title">Autonomous Lead — Mars Rover Team @ BITS Hyderabad</p>
+              <p class="meta">May 2024 – Jun 2025</p>
+            </div>
+            <span class="pill">Robotics • 3D</span>
+          </div>
+          <ul>
+            <li>3D mapping + point cloud generation using a 3D camera; trained tool-detection models (hammer, spanner, etc.).</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="section">
+      <h2>Skills</h2>
+      <div class="cols">
+        <div class="item">
+          <p class="title" style="margin:0 0 6px">Languages</p>
+          <p class="muted" style="margin:0">Python • C • C++ • Java • SQL • React • R</p>
+        </div>
+        <div class="item">
+          <p class="title" style="margin:0 0 6px">Tools & Libraries</p>
+          <p class="muted" style="margin:0">PyTorch • HuggingFace • Llama.cpp • LangChain • Sklearn • NumPy • Pandas • Firebase • Streamlit • Git</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section">
+      <h2>Contact</h2>
+      <div class="item">
+        <p style="margin:0 0 10px" class="muted">
+          If you want to collaborate (3D/CAD, multimodal ML, efficient vision) or have an internship/research opportunity, feel free to reach out.
+        </p>
+        <div class="btns">
+          <a class="btn primary" href="mailto:bphc.vldlab@gmail.com">Email me</a>
+          <a class="btn" href="https://github.com/tushdemort" target="_blank" rel="noreferrer">GitHub</a>
+          <a class="btn" href="#" target="_blank" rel="noreferrer">LinkedIn</a>
+        </div>
+        <p class="tiny" style="margin:12px 0 0">Pro tip: update the LinkedIn/CV links (currently set to <span class="kbd">#</span>).</p>
+      </div>
+    </section>
+
+    <div class="footer">
+      <div>© <span id="year"></span> Tushar Anand</div>
+      <div class="tiny">Built with plain HTML + CSS • Hosted on GitHub Pages</div>
+    </div>
+  </main>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
