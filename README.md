@@ -89,7 +89,7 @@ My primary interests are **3D representation learning, CAD modeling, multimodal 
 
 - **GitHub:** https://github.com/tushdemort  
 - **LinkedIn:** *(add link)*  
-- **Email:** bphc.vldlab@gmail.com  
+- **Email:** anand.tushar2010@gmail.com  
 
 ---
 
