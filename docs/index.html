@@ -1,384 +1,569 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Tushar Anand</title>
-  <meta name="description" content="Tushar Anand — CS & Economics @ BITS Hyderabad. Geometry, Vision, Language, CAD, Multimodal ML." />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tushar Anand</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --terracotta: #C4613A;
+    --terracotta-light: #E8845E;
+    --cream: #F5F0E8;
+    --cream-dark: #EDE6D6;
+    --ink: #1C1916;
+    --ink-light: #4A433B;
+    --ink-faint: #8C7E72;
+    --sand: #D4C4AE;
+    --white: #FDFAF5;
+    --green: #3A6B4A;
+  }
 
-  <style>
-    :root{
-      --bg:#181818;
-      --panel:#1F1F1F;
-      --panel2:#232323;
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-      --text:#F2F2F2;
-      --muted:#B5B5B5;
-      --faint:#8C8C8C;
+  html { scroll-behavior: smooth; }
 
-      --line:rgba(255,255,255,.08);
-      --accent:#F4A261;
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.6;
+    font-size: 15px;
+  }
 
-      --radius:14px;
-      --radius2:18px;
-      --max:1100px;
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: 0;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    background-size: 200px 200px;
+    opacity: 0.4;
+  }
 
-      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-    }
+  /* ── LAYOUT ── */
+  .container { max-width: 860px; margin: 0 auto; padding: 0 28px; position: relative; z-index: 1; }
 
-    *{box-sizing:border-box}
-    html,body{margin:0; padding:0}
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(245,240,232,0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--sand);
+    padding: 14px 0;
+  }
+  .nav-inner {
+    max-width: 860px; margin: 0 auto; padding: 0 28px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-name {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px; font-weight: 500;
+    color: var(--terracotta);
+    letter-spacing: 0.05em; text-transform: uppercase;
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 28px; }
+  .nav-links a {
+    font-size: 13px; color: var(--ink-light); text-decoration: none;
+    letter-spacing: 0.02em; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--terracotta); }
 
-    body{
-      font-family:var(--sans);
-      background:var(--bg);
-      color:var(--text);
-      line-height:1.6;
-    }
+  /* ── HERO ── */
+  #hero {
+    padding: 80px 0 60px;
+    border-bottom: 1px solid var(--sand);
+  }
+  .hero-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--terracotta); margin-bottom: 18px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .hero-label::after { content: ''; display: block; width: 40px; height: 1px; background: var(--terracotta); }
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(42px, 7vw, 68px);
+    line-height: 1.05;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  h1 em { font-style: italic; color: var(--terracotta); }
+  .hero-role {
+    font-size: 15px; color: var(--ink-light); margin-bottom: 28px;
+    font-weight: 300; letter-spacing: 0.01em;
+  }
+  .hero-bio {
+    font-size: 16px; color: var(--ink-light); line-height: 1.75;
+    max-width: 560px; font-weight: 300; margin-bottom: 36px;
+  }
+  .hero-links { display: flex; flex-wrap: wrap; gap: 12px; }
+  .pill {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 8px 16px; border-radius: 2px;
+    font-family: 'DM Mono', monospace; font-size: 12px;
+    letter-spacing: 0.04em; text-decoration: none;
+    border: 1px solid; transition: all 0.2s;
+  }
+  .pill-primary {
+    background: var(--terracotta); color: var(--white);
+    border-color: var(--terracotta);
+  }
+  .pill-primary:hover { background: var(--terracotta-light); border-color: var(--terracotta-light); }
+  .pill-outline {
+    background: transparent; color: var(--ink);
+    border-color: var(--sand);
+  }
+  .pill-outline:hover { border-color: var(--terracotta); color: var(--terracotta); }
 
-    a{color:var(--accent); text-decoration:none}
-    a:hover{text-decoration:underline}
+  /* ── SECTIONS ── */
+  section { padding: 64px 0; border-bottom: 1px solid var(--sand); }
+  .section-header {
+    display: flex; align-items: baseline; gap: 16px;
+    margin-bottom: 40px;
+  }
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px; color: var(--ink);
+  }
+  .section-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; color: var(--sand); letter-spacing: 0.08em;
+    margin-left: auto;
+  }
 
-    .topbar{
-      position:sticky;
-      top:0;
-      z-index:20;
-      background:rgba(24,24,24,.95);
-      border-bottom:1px solid var(--line);
-    }
+  /* ── PUBLICATIONS ── */
+  .pub-list { display: flex; flex-direction: column; gap: 20px; }
+  .pub-card {
+    background: var(--white);
+    border: 1px solid var(--sand);
+    border-left: 3px solid var(--terracotta);
+    padding: 22px 24px;
+    transition: border-left-color 0.2s, box-shadow 0.2s;
+    position: relative;
+  }
+  .pub-card:hover {
+    box-shadow: 4px 4px 0 var(--sand);
+  }
+  .pub-badge-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+  .badge {
+    font-family: 'DM Mono', monospace; font-size: 10px;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 3px 8px; border-radius: 2px;
+  }
+  .badge-venue { background: var(--terracotta); color: var(--white); }
+  .badge-year { background: var(--cream-dark); color: var(--ink-faint); }
+  .badge-equal { background: var(--green); color: var(--white); }
+  .pub-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 17px; line-height: 1.35; color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .pub-authors {
+    font-size: 13px; color: var(--ink-faint); margin-bottom: 10px; line-height: 1.5;
+  }
+  .pub-authors strong { color: var(--ink-light); font-weight: 500; }
+  .pub-abstract {
+    font-size: 13px; color: var(--ink-light); line-height: 1.65;
+    margin-bottom: 14px; font-weight: 300;
+  }
+  .pub-links { display: flex; gap: 10px; flex-wrap: wrap; }
+  .pub-link {
+    font-family: 'DM Mono', monospace; font-size: 11px;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--terracotta); text-decoration: none;
+    padding: 4px 0; border-bottom: 1px solid var(--terracotta);
+    transition: opacity 0.2s;
+  }
+  .pub-link:hover { opacity: 0.65; }
 
-    .topbar .inner{
-      max-width:var(--max);
-      margin:0 auto;
-      padding:14px 18px;
-      display:flex;
-      align-items:center;
-      gap:18px;
-    }
+  /* ── EXPERIENCE ── */
+  .exp-list { display: flex; flex-direction: column; gap: 0; }
+  .exp-item {
+    display: grid; grid-template-columns: 140px 1fr;
+    gap: 0 28px; padding: 24px 0;
+    border-bottom: 1px solid var(--cream-dark);
+  }
+  .exp-item:last-child { border-bottom: none; }
+  .exp-date {
+    font-family: 'DM Mono', monospace; font-size: 12px;
+    color: var(--ink-faint); padding-top: 3px; line-height: 1.5;
+  }
+  .exp-right {}
+  .exp-title {
+    font-size: 15px; font-weight: 500; color: var(--ink); margin-bottom: 2px;
+  }
+  .exp-org {
+    font-family: 'DM Mono', monospace; font-size: 12px;
+    color: var(--terracotta); margin-bottom: 10px; letter-spacing: 0.03em;
+  }
+  .exp-points { padding-left: 16px; list-style: none; }
+  .exp-points li {
+    font-size: 13.5px; color: var(--ink-light); line-height: 1.65;
+    font-weight: 300; margin-bottom: 4px;
+    position: relative;
+  }
+  .exp-points li::before {
+    content: '—';
+    position: absolute; left: -16px;
+    color: var(--sand); font-size: 12px;
+  }
 
-    .logo{
-      font-weight:700;
-      display:flex;
-      align-items:center;
-      gap:10px;
-    }
+  /* ── PROJECTS ── */
+  .project-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 600px) { .project-grid { grid-template-columns: 1fr; } }
+  .project-card {
+    background: var(--white);
+    border: 1px solid var(--sand);
+    padding: 22px;
+    transition: box-shadow 0.2s;
+  }
+  .project-card:hover { box-shadow: 4px 4px 0 var(--sand); }
+  .project-num {
+    font-family: 'DM Mono', monospace; font-size: 11px;
+    color: var(--sand); margin-bottom: 8px;
+  }
+  .project-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 16px; color: var(--ink); margin-bottom: 8px; line-height: 1.3;
+  }
+  .project-desc {
+    font-size: 13px; color: var(--ink-light); line-height: 1.65; font-weight: 300;
+    margin-bottom: 14px;
+  }
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag {
+    font-family: 'DM Mono', monospace; font-size: 10px;
+    letter-spacing: 0.06em; padding: 3px 8px;
+    background: var(--cream-dark); color: var(--ink-faint);
+    border-radius: 2px;
+  }
 
-    .dot{
-      width:9px;
-      height:9px;
-      border-radius:50%;
-      background:var(--accent);
-    }
+  /* ── SKILLS ── */
+  .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  @media (max-width: 600px) { .skills-grid { grid-template-columns: 1fr 1fr; } }
+  .skill-group {}
+  .skill-group-name {
+    font-family: 'DM Mono', monospace; font-size: 10px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--terracotta); margin-bottom: 8px;
+  }
+  .skill-group-items { font-size: 13px; color: var(--ink-light); line-height: 1.8; font-weight: 300; }
 
-    .nav{
-      margin-left:auto;
-      display:flex;
-      gap:18px;
-      flex-wrap:wrap;
-    }
+  /* ── FOOTER ── */
+  footer {
+    padding: 40px 0; text-align: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; color: var(--ink-faint);
+    letter-spacing: 0.06em;
+  }
+  footer a { color: var(--terracotta); text-decoration: none; }
 
-    .nav a{
-      color:var(--muted);
-      font-size:14px;
-    }
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-label, h1, .hero-role, .hero-bio, .hero-links {
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero-label  { animation-delay: 0.05s; }
+  h1           { animation-delay: 0.12s; }
+  .hero-role   { animation-delay: 0.18s; }
+  .hero-bio    { animation-delay: 0.24s; }
+  .hero-links  { animation-delay: 0.30s; }
 
-    .nav a:hover{color:var(--text)}
-
-    .wrap{
-      max-width:var(--max);
-      margin:0 auto;
-      padding:36px 18px 80px;
-    }
-
-    .hero{
-      display:grid;
-      grid-template-columns:1.4fr .6fr;
-      gap:22px;
-    }
-
-    @media (max-width:900px){
-      .hero{grid-template-columns:1fr}
-    }
-
-    .card{
-      background:var(--panel);
-      border:1px solid var(--line);
-      border-radius:var(--radius2);
-      padding:22px 22px;
-    }
-
-    h1{
-      margin:0 0 8px;
-      font-size:38px;
-      letter-spacing:-0.6px;
-    }
-
-    .subtitle{
-      color:var(--muted);
-      margin:0 0 16px;
-      max-width:70ch;
-    }
-
-    .chips{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin:18px 0;
-    }
-
-    .chip{
-      font-size:13px;
-      padding:6px 10px;
-      border-radius:999px;
-      background:var(--panel2);
-      border:1px solid var(--line);
-      color:var(--muted);
-    }
-
-    .btns{
-      display:flex;
-      gap:12px;
-      flex-wrap:wrap;
-      margin-top:10px;
-    }
-
-    .btn{
-      padding:10px 14px;
-      border-radius:10px;
-      border:1px solid var(--line);
-      background:var(--panel2);
-      color:var(--text);
-      font-weight:600;
-      font-size:14px;
-    }
-
-    .btn.primary{
-      background:rgba(244,162,97,.14);
-      border-color:rgba(244,162,97,.35);
-      color:var(--accent);
-    }
-
-    .section{
-      margin-top:34px;
-    }
-
-    .section h2{
-      font-size:17px;
-      margin:0 0 14px;
-    }
-
-    .item{
-      background:var(--panel2);
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      padding:18px 18px;
-      margin-bottom:14px;
-    }
-
-    .item-title{
-      font-weight:700;
-      margin:0;
-    }
-
-    .meta{
-      color:var(--faint);
-      font-size:13px;
-      margin-top:4px;
-    }
-
-    ul{
-      margin:10px 0 0 18px;
-      padding:0;
-    }
-
-    li{
-      color:var(--muted);
-      margin:6px 0;
-    }
-
-    .pill{
-      font-family:var(--mono);
-      font-size:12px;
-      padding:6px 10px;
-      border-radius:999px;
-      border:1px solid rgba(244,162,97,.35);
-      background:rgba(244,162,97,.12);
-      color:var(--accent);
-      display:inline-block;
-      margin-top:8px;
-    }
-
-    .side .item{margin-bottom:12px}
-
-    .footer{
-      margin-top:50px;
-      padding-top:18px;
-      border-top:1px solid var(--line);
-      color:var(--faint);
-      font-size:13px;
-      display:flex;
-      justify-content:space-between;
-      flex-wrap:wrap;
-      gap:10px;
-    }
-  </style>
+  /* ── DIVIDER ── */
+  .rule { width: 32px; height: 2px; background: var(--terracotta); margin: 0 0 24px; }
+</style>
 </head>
-
 <body>
-  <div class="topbar">
-    <div class="inner">
-      <div class="logo"><span class="dot"></span> Tushar Anand</div>
-      <nav class="nav">
-        <a href="#about">About</a>
-        <a href="#publications">Publications</a>
-        <a href="#experience">Experience</a>
-        <a href="#leadership">Leadership</a>
-        <a href="#skills">Skills</a>
-        <a href="#contact">Contact</a>
-      </nav>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-name" href="#">Tushar Anand</a>
+    <div class="nav-links">
+      <a href="#publications">Publications</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
     </div>
   </div>
+</nav>
 
-  <main class="wrap">
-    <section class="hero">
-      <div class="card">
-        <h1>Tushar Anand</h1>
-        <p class="subtitle">
-          CS & Economics @ <b>BITS Hyderabad</b> (CGPA 9.07, Top 4%).  
-          I work on <b>geometry-aware ML</b>, <b>multimodal CAD systems</b>, and <b>efficient vision models</b>.
-        </p>
-
-        <div class="chips">
-          <span class="chip">B-Rep CAD</span>
-          <span class="chip">3D Representation Learning</span>
-          <span class="chip">Vision × Language</span>
-          <span class="chip">Efficient Models</span>
-        </div>
-
-        <div class="btns">
-          <a class="btn primary" href="mailto:bphc.vldlab@gmail.com">Email</a>
-          <a class="btn" href="https://github.com/tushdemort" target="_blank">GitHub</a>
-          <a class="btn" href="#" target="_blank">LinkedIn</a>
-          <a class="btn" href="#" target="_blank">CV</a>
-        </div>
-      </div>
-
-      <div class="side">
-        <div class="item">
-          <p class="item-title">Research Focus</p>
-          <p class="meta">Geometric DL, CAD, Multimodal Learning</p>
-        </div>
-        <div class="item">
-          <p class="item-title">Publications</p>
-          <p class="meta">CVPR • ICASSP</p>
-        </div>
-        <div class="item">
-          <p class="item-title">Open to</p>
-          <p class="meta">Research Internships & Collaborations</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="about" class="section">
-      <h2>About</h2>
-      <div class="item">
-        I’m interested in how structured geometry (like <b>B-Rep CAD</b>) can be learned, generated, and edited using modern ML,
-        especially when combined with <b>language</b> and <b>vision</b>. My work spans multimodal CAD representations,
-        stereo depth with efficient sequence models, and local LLM-based systems for data collection and interaction.
-      </div>
-    </section>
-
-    <section id="publications" class="section">
-      <h2>Publications</h2>
-
-      <div class="item">
-        <p class="item-title">
-          A2Z-10M+: Geometric Deep Learning with A-to-Z B-Rep Annotations for AI-Assisted CAD Modeling and Reverse Engineering
-        </p>
-        <p class="meta">CVPR 2026 — Under Review</p>
-        <span class="pill">Geometric DL • CAD</span>
-        <ul>
-          <li>Large-scale B-Rep annotations enabling learning for CAD modeling and reverse engineering.</li>
-        </ul>
-      </div>
-
-      <div class="item">
-        <p class="item-title">
-          ViM-Disparity: Bridging the Gap of Speed, Accuracy and Memory for Disparity Map Generation
-        </p>
-        <p class="meta">ICASSP 2025</p>
-        <span class="pill">Stereo • Vision Mamba</span>
-        <ul>
-          <li>Efficient stereo matching using Vision Mamba blocks.</li>
-        </ul>
-      </div>
-    </section>
-
-    <section id="experience" class="section">
-      <h2>Research & Engineering Experience</h2>
-
-      <div class="item">
-        <p class="item-title">LLMs for Multi-Paradigm Causal Graphs</p>
-        <p class="meta">Advisor: Prof. S. K. Aziz Ali</p>
-        <ul>
-          <li>Built a human–AI conversational dataset platform with local LLM inference.</li>
-          <li>Flask backend with Firebase-based multi-turn context management.</li>
-        </ul>
-      </div>
-
-      <div class="item">
-        <p class="item-title">ML Intern — DeepTek AI</p>
-        <p class="meta">May 2024 – Jul 2024</p>
-        <ul>
-          <li>Trained ResNet/InceptionV3 models (F1 = 0.85).</li>
-          <li>Improved inference speed by 53% using quantization.</li>
-        </ul>
-      </div>
-    </section>
-
-    <section id="leadership" class="section">
-      <h2>Leadership</h2>
-
-      <div class="item">
-        <p class="item-title">GenAI Lead — ACM BITS Hyderabad</p>
-        <ul>
-          <li>CNN-based defect detection and multilingual translation models.</li>
-        </ul>
-      </div>
-
-      <div class="item">
-        <p class="item-title">Autonomous Lead — Mars Rover Team</p>
-        <ul>
-          <li>3D mapping and object detection using depth cameras.</li>
-        </ul>
-      </div>
-    </section>
-
-    <section id="skills" class="section">
-      <h2>Skills</h2>
-
-      <div class="item">
-        <b>Languages:</b> Python, C, C++, Java, SQL, React, R<br>
-        <b>Tools:</b> PyTorch, HuggingFace, Llama.cpp, LangChain, Git, Firebase
-      </div>
-    </section>
-
-    <section id="contact" class="section">
-      <h2>Contact</h2>
-      <div class="item">
-        Email: <a href="mailto:bphc.vldlab@gmail.com">anand.tushar2010@gmail.com</a>
-      </div>
-    </section>
-
-    <div class="footer">
-      <div>© <span id="year"></span> Tushar Anand</div>
-      <div>Minimal academic theme • GitHub Pages</div>
+<!-- HERO -->
+<div id="hero">
+  <div class="container">
+    <div class="hero-label">Research Portfolio</div>
+    <h1>Tushar <em>Anand</em></h1>
+    <p class="hero-role">CS + Economics · BITS Pilani Hyderabad · GPA 9.09 / 10</p>
+    <p class="hero-bio">
+      I work on computer vision and multimodal deep learning — specifically real-time dense prediction, Mamba architectures, and CAD understanding. My research sits at the intersection of efficiency and accuracy in 3D perception.
+    </p>
+    <div class="hero-links">
+      <a class="pill pill-primary" href="https://scholar.google.com/citations?user=DJxbmywAAAAJ&hl=en" target="_blank">
+        ↗ Google Scholar
+      </a>
+      <a class="pill pill-outline" href="https://github.com" target="_blank">GitHub</a>
+      <a class="pill pill-outline" href="https://linkedin.com" target="_blank">LinkedIn</a>
+      <a class="pill pill-outline" href="mailto:tushar@hyderabad.bits-pilani.ac.in">Email</a>
     </div>
-  </main>
+  </div>
+</div>
 
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
+<!-- PUBLICATIONS -->
+<section id="publications">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Research</span>
+      <h2>Publications</h2>
+      <span class="section-num">04 papers</span>
+    </div>
+
+    <div class="pub-list">
+
+      <!-- A2Z -->
+      <div class="pub-card">
+        <div class="pub-badge-row">
+          <span class="badge badge-year">2026</span>
+          <span class="badge badge-venue">CVPR 2026 Findings</span>
+        </div>
+        <div class="pub-title">A2Z-10M+: Geometric Deep Learning with A-to-Z BRep Annotations for AI-Assisted CAD Modeling and Reverse Engineering</div>
+        <div class="pub-authors">
+          Pritham Kumar Jena, Bhavika Baburaj, <strong>Tushar Anand</strong>, Vedant Dutta, Vineeth Ulavala, Sk Aziz Ali
+        </div>
+        <div class="pub-abstract">
+          The largest compilation of 10 million multi-modal annotations and metadata for 1 million ABC CAD models, enabling unprecedented BRep learning with high-resolution meshes, 3D hand-drawn sketches, geometric and topological information, and textual captions.
+        </div>
+        <div class="pub-links">
+          <a class="pub-link" href="https://arxiv.org/abs/2603.12605" target="_blank">arXiv</a>
+        </div>
+      </div>
+
+      <!-- DenVisCoM -->
+      <div class="pub-card">
+        <div class="pub-badge-row">
+          <span class="badge badge-year">2026</span>
+          <span class="badge badge-venue">ICRA 2026</span>
+          <span class="badge badge-equal">First Author</span>
+        </div>
+        <div class="pub-title">DenVisCoM: Dense Vision Correspondence Mamba for Efficient and Real-time Optical Flow and Stereo Estimation</div>
+        <div class="pub-authors">
+          <strong>Tushar Anand</strong> et al.
+        </div>
+        <div class="pub-abstract">
+          A novel Mamba block and hybrid architecture for joint, accurate, real-time estimation of optical flow and disparity. Addresses the three-way trade-off of inference speed, memory footprint, and accuracy in dense multi-view geometry tasks.
+        </div>
+        <div class="pub-links">
+          <a class="pub-link" href="https://arxiv.org/abs/2602.01724" target="_blank">arXiv</a>
+        </div>
+      </div>
+
+      <!-- DensePercept-NCSSD -->
+      <div class="pub-card">
+        <div class="pub-badge-row">
+          <span class="badge badge-year">2026</span>
+          <span class="badge badge-venue">ICRA 2026</span>
+          <span class="badge badge-equal">First Author</span>
+        </div>
+        <div class="pub-title">DensePercept-NCSSD: Vision Mamba towards Real-time Dense Visual Perception with Non-Causal State Space Duality</div>
+        <div class="pub-authors">
+          <strong>Tushar Anand</strong> et al.
+        </div>
+        <div class="pub-abstract">
+          A non-causal Mamba block-based model for unified real-time optical flow and disparity estimation. Fuses pairwise input images within a non-causal selective state space, reducing inference times while maintaining high accuracy and low GPU memory footprint.
+        </div>
+        <div class="pub-links">
+          <a class="pub-link" href="https://github.com/vimstereo/DensePerceptNCSSD" target="_blank">Code</a>
+        </div>
+      </div>
+
+      <!-- ViM-Disparity -->
+      <div class="pub-card">
+        <div class="pub-badge-row">
+          <span class="badge badge-year">2025</span>
+          <span class="badge badge-venue">ICASSP 2025</span>
+          <span class="badge badge-equal">Equal Contribution</span>
+        </div>
+        <div class="pub-title">ViM-Disparity: Bridging the Gap of Speed, Accuracy and Memory for Disparity Map Generation</div>
+        <div class="pub-authors">
+          Maheswar Bora*, <strong>Tushar Anand*</strong>, Saurabh Atreya, Aritra Mukherjee, Abhijit Das
+        </div>
+        <div class="pub-abstract">
+          A Visual Mamba (ViM) based architecture that dissolves the speed–accuracy–memory trade-off for real-time disparity map generation, along with a novel joint performance measure for DMG evaluation.
+        </div>
+        <div class="pub-links">
+          <a class="pub-link" href="https://arxiv.org/abs/2412.16745" target="_blank">arXiv</a>
+          <a class="pub-link" href="https://github.com/MBora/ViM-Disparity" target="_blank">Code</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Industry</span>
+      <h2>Experience</h2>
+    </div>
+    <div class="exp-list">
+
+      <div class="exp-item">
+        <div class="exp-date">May – Jul 2024</div>
+        <div class="exp-right">
+          <div class="exp-title">ML Intern</div>
+          <div class="exp-org">DeepTek AI</div>
+          <ul class="exp-points">
+            <li>Trained ResNet and InceptionV3 models for lung disease detection from chest imaging.</li>
+            <li>Quantized model sizes using FP16/FP8 precision and applied QAT and post-training quantization on ResNet.</li>
+            <li>Evaluated models with sensitivity, specificity, and AUC-ROC metrics.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-date">May 2023 – Jan 2024</div>
+        <div class="exp-right">
+          <div class="exp-title">Intern</div>
+          <div class="exp-org">WILP @ BITS</div>
+          <ul class="exp-points">
+            <li>Built a Flask + Python platform for AI-powered exam creation — MCQ and subjective question generation with NLP/PyTorch.</li>
+            <li>Implemented automatic MCQ grading and AI-assisted subjective marking via semantic similarity scoring.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Research & Engineering</span>
+      <h2>Projects</h2>
+    </div>
+    <div class="project-grid">
+
+      <div class="project-card">
+        <div class="project-num">01 · Nov 2024 – Present</div>
+        <div class="project-title">LLMs for Multiple Paradigm Causal Graphs</div>
+        <div class="project-desc">
+          Conversation dataset tool for simulating therapeutic dialogues (patient–therapist). Local LLM pipelines with Flask backend, Firebase real-time storage, and context management.
+        </div>
+        <div class="tag-row">
+          <span class="tag">LangChain</span><span class="tag">HuggingFace</span><span class="tag">Firebase</span><span class="tag">Flask</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-num">02 · Jul – Nov 2024</div>
+        <div class="project-title">Multimodal CAD Model Generation</div>
+        <div class="project-desc">
+          Adapted generative CAD models for multi-modal input (LLMs, BERT, ViT, point cloud CNNs). Trained MAE for distillation and VAE for novel CAD generation from the DeepCAD latent space.
+        </div>
+        <div class="tag-row">
+          <span class="tag">PyTorch</span><span class="tag">ViT</span><span class="tag">VAE</span><span class="tag">Point Cloud</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-num">03 · GenAI Lead @ ACM BPHC</div>
+        <div class="project-title">Machine Translation & Wall Defect Detection</div>
+        <div class="project-desc">
+          Led LSTM / RNN / Transformer training for EN→FR/DE/ES translation. Also applied CNNs for wall defect detection from Kaggle dataset.
+        </div>
+        <div class="tag-row">
+          <span class="tag">Transformers</span><span class="tag">LSTM</span><span class="tag">CNN</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-num">04 · Mars Rover Team @ BPHC</div>
+        <div class="project-title">Autonomous Mapping & Object Detection</div>
+        <div class="project-desc">
+          3D camera-based mapping and point cloud generation of surroundings. Curated dataset and trained YOLO-style detection model for tool recognition (hammer, spanner).
+        </div>
+        <div class="tag-row">
+          <span class="tag">Point Clouds</span><span class="tag">Object Detection</span><span class="tag">3D Vision</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section>
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Stack</span>
+      <h2>Technologies</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <div class="skill-group-name">Languages</div>
+        <div class="skill-group-items">Python · C / C++ · SQL · Java · R · React</div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-name">Deep Learning</div>
+        <div class="skill-group-items">PyTorch · HuggingFace · LangChain · Llama.cpp · Sklearn</div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-name">Infrastructure</div>
+        <div class="skill-group-items">Git · Firebase · Streamlit · Flask · Conda · Numpy · Pandas</div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-name">Research Areas</div>
+        <div class="skill-group-items">Dense Prediction · Mamba / SSMs · Multimodal ML · CAD / 3D Vision</div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-name">Quantization</div>
+        <div class="skill-group-items">QAT · PTQ · FP16 · FP8 inference</div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-name">Attended</div>
+        <div class="skill-group-items">3DVSS · IIIT Hyderabad (Jun 2025)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" style="border-bottom: none;">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Get in touch</span>
+      <h2>Contact</h2>
+    </div>
+    <p style="font-size:15px; color:var(--ink-light); font-weight:300; max-width:420px; line-height:1.75; margin-bottom:28px;">
+      I'm open to research collaborations, internship opportunities, and general conversation about computer vision and ML systems.
+    </p>
+    <div class="hero-links">
+      <a class="pill pill-primary" href="mailto:tushar@hyderabad.bits-pilani.ac.in">Write to me</a>
+      <a class="pill pill-outline" href="https://scholar.google.com/citations?user=DJxbmywAAAAJ&hl=en" target="_blank">Google Scholar</a>
+      <a class="pill pill-outline" href="https://linkedin.com" target="_blank">LinkedIn</a>
+      <a class="pill pill-outline" href="https://github.com" target="_blank">GitHub</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p>Tushar Anand · BITS Pilani Hyderabad · CS + Economics · 2022–2027</p>
+  </div>
+</footer>
+
 </body>
 </html>
