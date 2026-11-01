@@ -1,1 +1,201 @@
-hi
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A simple home for your personal app links.">
+  <title>My apps</title>
+  <style>
+    :root { color-scheme: light; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #20242b; background: #fafaf9; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    main { max-width: 660px; margin: 96px auto; padding: 0 24px; }
+    header { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 32px; }
+    h1 { margin: 0 0 6px; font-size: 38px; font-weight: 650; letter-spacing: -1.5px; }
+    #count { margin: 0; color: #73777f; font-size: 14px; }
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    button:focus-visible, a:focus-visible { outline: 3px solid #2563eb; outline-offset: 4px; }
+    .primary { border: 1px solid #20242b; border-radius: 8px; padding: 10px 15px; background: #20242b; color: #fff; font-size: 14px; font-weight: 600; white-space: nowrap; }
+    .primary:hover { background: #3b4049; }
+    form { margin-bottom: 24px; padding: 20px; border: 1px solid #e2e3e5; border-radius: 12px; background: white; }
+    .fields { display: grid; grid-template-columns: 1fr 1.45fr; gap: 12px; }
+    label { display: block; font-size: 13px; font-weight: 600; }
+    input { width: 100%; margin-top: 7px; padding: 11px 12px; border: 1px solid #d5d7db; border-radius: 6px; color: #20242b; background: #fff; font-size: 14px; }
+    input:focus { outline: 2px solid #2563eb; outline-offset: 1px; }
+    .actions { display: flex; align-items: center; gap: 14px; margin-top: 16px; }
+    .text-button { padding: 2px 0; border: 0; background: none; color: #68707b; font-size: 13px; }
+    .text-button:hover { color: #20242b; text-decoration: underline; }
+    #error { margin: 12px 0 0; color: #b42318; font-size: 13px; }
+    ul { margin: 0; padding: 0; list-style: none; }
+    li { display: flex; align-items: center; gap: 12px; border-bottom: 1px solid #e5e6e8; }
+    .app-link { display: flex; flex: 1; min-width: 0; align-items: center; justify-content: space-between; gap: 20px; padding: 20px 0; text-decoration: none; }
+    .app-name { display: block; overflow-wrap: anywhere; color: #244fbe; font-size: 17px; font-weight: 600; }
+    .app-link:hover .app-name { text-decoration: underline; text-underline-offset: 4px; }
+    .domain { display: block; margin-top: 5px; overflow-wrap: anywhere; color: #858a92; font-size: 12px; }
+    .arrow { color: #949ba5; font-size: 20px; }
+    .remove { display: grid; flex-shrink: 0; place-items: center; width: 32px; height: 36px; border: 0; border-radius: 5px; color: #9298a1; background: transparent; font-size: 21px; }
+    .remove:hover { color: #b42318; background: #fff0ee; }
+    #empty { padding: 44px 20px; border: 1px dashed #d9dce1; border-radius: 12px; text-align: center; }
+    #empty strong { font-size: 15px; font-weight: 600; }
+    #empty p { margin: 8px 0 0; color: #858a92; font-size: 13px; }
+    footer { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-top: 28px; color: #858a92; font-size: 12px; }
+    footer button { flex-shrink: 0; }
+    #status { min-height: 20px; margin-top: 16px; color: #68707b; font-size: 12px; line-height: 1.6; }
+    [hidden] { display: none !important; }
+    @media (max-width: 480px) { main { margin-top: 48px; padding: 0 20px; } h1 { font-size: 32px; } .fields { grid-template-columns: 1fr; } form { padding: 16px; } }
+  </style>
+</head>
+<body data-storage-key="personal-apps-v1">
+  <main>
+    <header>
+      <div><h1>My apps</h1><p id="count">0 apps</p></div>
+      <button class="primary" id="toggle" type="button" aria-expanded="false" aria-controls="add-form">+ Add app</button>
+    </header>
+
+    <form id="add-form" hidden>
+      <div class="fields">
+        <label>App name<input id="app-name" placeholder="e.g. Habit tracker" required maxlength="80" autocomplete="off"></label>
+        <label>Website URL<input id="app-url" placeholder="https://your-app.com" required maxlength="2048" inputmode="url" autocapitalize="none" spellcheck="false" autocomplete="off" aria-describedby="error"></label>
+      </div>
+      <div class="actions">
+        <button class="primary" type="submit">Add link</button>
+        <button class="text-button" id="cancel" type="button">Cancel</button>
+      </div>
+      <p id="error" role="alert" hidden></p>
+    </form>
+
+    <ul id="apps" aria-label="App links"></ul>
+    <div id="empty"><strong>No apps yet.</strong><p>Add a name and a link to get started.</p></div>
+
+    <footer>
+      <span>Links are saved in this browser.</span>
+      <button class="text-button" id="download" type="button">Download HTML ↓</button>
+    </footer>
+    <p id="status" role="status" aria-live="polite"></p>
+    <noscript><p>Enable JavaScript to add and display your app links.</p></noscript>
+  </main>
+
+  <!-- To pre-fill links directly in the file, replace [] below with:
+       [{"name":"My app","url":"https://your-app.com"}]
+       You can also add links on the page and click Download HTML. -->
+  <script id="app-data" type="application/json">[]</script>
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const storageKey = document.body.dataset.storageKey;
+    const isApp = (app) => {
+      if (!app || typeof app.name !== 'string' || !app.name.trim() || typeof app.url !== 'string') return false;
+      try { return ['https:', 'http:'].includes(new URL(app.url).protocol); } catch { return false; }
+    };
+    let apps = JSON.parse($('app-data').textContent).filter(isApp);
+    try {
+      const saved = JSON.parse(localStorage.getItem(storageKey));
+      if (Array.isArray(saved)) apps = saved.filter(isApp);
+    } catch { /* The page still works when browser storage is unavailable. */ }
+
+    function setForm(open) {
+      $('add-form').hidden = !open;
+      $('toggle').setAttribute('aria-expanded', String(open));
+      $('error').hidden = true;
+      $('app-url').removeAttribute('aria-invalid');
+      if (open) $('app-name').focus();
+    }
+
+    function save() {
+      try { localStorage.setItem(storageKey, JSON.stringify(apps)); }
+      catch { $('status').textContent = 'Browser storage is unavailable. Download HTML to keep your links.'; }
+    }
+
+    function render() {
+      $('apps').replaceChildren();
+      $('empty').hidden = apps.length > 0;
+      $('count').textContent = `${apps.length} ${apps.length === 1 ? 'app' : 'apps'}`;
+      apps.forEach((app, index) => {
+        const row = document.createElement('li');
+        const link = document.createElement('a');
+        link.className = 'app-link';
+        link.href = app.url;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        const text = document.createElement('span');
+        const name = document.createElement('span');
+        name.className = 'app-name';
+        name.textContent = app.name;
+        const domain = document.createElement('span');
+        domain.className = 'domain';
+        domain.textContent = new URL(app.url).host;
+        const arrow = document.createElement('span');
+        arrow.className = 'arrow';
+        arrow.textContent = '↗';
+        arrow.setAttribute('aria-hidden', 'true');
+        text.append(name, domain);
+        link.append(text, arrow);
+        const remove = document.createElement('button');
+        remove.className = 'remove';
+        remove.type = 'button';
+        remove.textContent = '×';
+        remove.setAttribute('aria-label', `Remove ${app.name}`);
+        remove.title = `Remove ${app.name}`;
+        remove.addEventListener('click', () => {
+          apps.splice(index, 1);
+          $('status').textContent = `${app.name} removed.`;
+          save();
+          render();
+          const nextButton = $('apps').querySelectorAll('.remove')[Math.min(index, apps.length - 1)];
+          (nextButton || $('toggle')).focus();
+        });
+        row.append(link, remove);
+        $('apps').append(row);
+      });
+    }
+
+    $('toggle').addEventListener('click', () => setForm($('add-form').hidden));
+    $('cancel').addEventListener('click', () => { setForm(false); $('toggle').focus(); });
+    $('add-form').addEventListener('submit', (event) => {
+      event.preventDefault();
+      const name = $('app-name').value.trim();
+      const raw = $('app-url').value.trim();
+      try {
+        const url = new URL(/^[a-z][a-z\d+.-]*:/i.test(raw) ? raw : `https://${raw}`);
+        if (!name || !['https:', 'http:'].includes(url.protocol)) throw new Error();
+        apps.push({ name, url: url.href });
+        $('status').textContent = `${name} added.`;
+        save();
+        render();
+        $('add-form').reset();
+        setForm(false);
+        $('toggle').focus();
+      } catch {
+        $('error').textContent = 'Enter a valid website URL, such as https://your-app.com.';
+        $('error').hidden = false;
+        $('app-url').setAttribute('aria-invalid', 'true');
+        $('app-url').focus();
+      }
+    });
+
+    $('download').addEventListener('click', () => {
+      const page = document.documentElement.cloneNode(true);
+      page.querySelector('#app-data').textContent = JSON.stringify(apps).replace(/</g, '\\u003c');
+      // A fresh key lets the downloaded copy start with its embedded links.
+      page.querySelector('body').dataset.storageKey = `personal-apps-${Date.now()}`;
+      page.querySelector('#status').textContent = '';
+      page.querySelector('#error').hidden = true;
+      page.querySelector('#add-form').hidden = true;
+      page.querySelector('#toggle').setAttribute('aria-expanded', 'false');
+      page.querySelectorAll('input').forEach((input) => { input.removeAttribute('value'); input.removeAttribute('aria-invalid'); });
+      const blob = new Blob(['<!doctype html>\n' + page.outerHTML], { type: 'text/html;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'personal.html';
+      document.body.append(link);
+      link.click();
+      link.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+      $('status').textContent = 'Downloaded personal.html with your links. Upload it to publish your list.';
+    });
+
+    render();
+  </script>
+</body>
+</html>
